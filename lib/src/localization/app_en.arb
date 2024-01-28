@@ -1,0 +1,6 @@
+{
+  "appTitle": "restore_config",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
