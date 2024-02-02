@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// A service that stores and retrieves user settings.
 ///
@@ -6,19 +7,32 @@ import 'package:flutter/material.dart';
 /// persist the user settings locally, use the shared_preferences package. If
 /// you'd like to store settings on a web server, use the http package.
 class SettingsService {
-  /// Loads the User's preferred ThemeMode from local or remote storage.
-  Future<ThemeMode> themeMode() async => ThemeMode.system;
-  String _locale = "en";
+  static const String themeKey = "theme",localeKey="prefLocale";
+
+  late SharedPreferences preferences;
+
+  Future<void> init() async{
+    preferences=await SharedPreferences.getInstance();
+    locale=preferences.getString(localeKey)??"en";
+    int? themeIndex=preferences.getInt(themeKey);
+    theme=ThemeMode.values[themeIndex??0];
+  }
+
+  late String _locale;
+  late ThemeMode _theme;
+
+  ThemeMode get theme => _theme;
+
+  set theme(ThemeMode value) {
+    _theme = value;
+    preferences.setInt(themeKey, theme.index);
+  }
 
   String get locale => _locale;
 
   set locale(String value) {
     _locale = value;
+    preferences.setString(localeKey, locale);
   }
 
-  /// Persists the user's preferred ThemeMode to local or remote storage.
-  Future<void> updateThemeMode(ThemeMode theme) async {
-    // Use the shared_preferences package to persist settings locally or the
-    // http package to persist settings over the network.
-  }
 }

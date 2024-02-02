@@ -1,6 +1,22 @@
 {
-  "appTitle": "restore_config",
+  "appTitle": "My app",
   "@appTitle": {
     "description": "The title of the application"
-  }
+  },
+  "setteings":"Setteings",
+  "theme_dark":"Dark",
+  "theme_light":"light",
+  "theme_sys":"system",
+  "titles_sampleItem":"Sample Item {no}",
+  "@titles_sampleItem": {
+    "description": "item title with no",
+    "placeholders": {
+      "no": {
+        "type": "int",
+        "example": "0"
+      }
+    }
+  },
+  "item_details":"Item Details",
+  "item_details_more":"More information Here"
 }

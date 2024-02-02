@@ -1,6 +1,22 @@
 {
-  "appTitle": "الاسترجاع",
+  "appTitle": "تطبيقي",
   "@appTitle": {
     "description": "عموان"
-  }
+  },
+  "setteings":"الاعدادات",
+  "theme_dark":"داكن",
+  "theme_light":"فاتح",
+  "theme_sys":"النظام",
+  "titles_sampleItem":"نموذج عنصر {no}",
+  "@titles_sampleItem": {
+    "description": "item title with no",
+    "placeholders": {
+      "no": {
+        "type": "int",
+        "example": "0"
+      }
+    }
+  },
+  "item_details":"بيانات العنصر",
+  "item_details_more":"المزيد من المعلومات هنا"
 }
