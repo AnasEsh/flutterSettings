@@ -18,5 +18,6 @@
     }
   },
   "item_details":"Item Details",
-  "item_details_more":"More information Here"
+  "item_details_more":"More information Here",
+  "invalid_cred":"Invalid credentials"
 }
