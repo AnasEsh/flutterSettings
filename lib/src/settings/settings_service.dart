@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restore_config/src/utils/di.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A service that stores and retrieves user settings.
@@ -14,6 +15,7 @@ class SettingsService {
   Future<void> init() async{
     preferences=await SharedPreferences.getInstance();
     locale=preferences.getString(localeKey)??"en";
+    await registerLocalization(locale);
     int? themeIndex=preferences.getInt(themeKey);
     theme=ThemeMode.values[themeIndex??0];
   }

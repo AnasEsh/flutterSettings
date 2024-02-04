@@ -29,7 +29,9 @@ class SettingsView extends StatelessWidget {
           children: [
             DropdownButton<String>(
               value: controller.locale,
-              onChanged: (value) => controller.changeLocale(value!),
+              onChanged: (value) async{
+                await controller.changeLocale(value!);
+              },
               items:const [
                 DropdownMenuItem(
                   

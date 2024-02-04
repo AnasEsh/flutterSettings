@@ -19,6 +19,16 @@ class UserService extends BaseService {
     return ApiResult(success: r.statusCode == 200, message: r.statusMessage);
     // return unparsed == null ? unparsed : User.fromJson(unparsed);
   }
+
+  Future<ApiResult<bool>> register(
+      String name, String email, String pswd) async {
+    try {
+      final r=await http.post("user", data: {name: name, email: email, pswd: pswd});
+
+    } catch (ex) {
+    }
+      return ApiResult();
+  }
 }
 
 abstract class BaseService {

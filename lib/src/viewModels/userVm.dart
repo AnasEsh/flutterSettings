@@ -35,4 +35,9 @@ class UserViewModel extends BaseVm {
 
     return result;
   }
+
+  Future<bool> register(String name, String email, String pswd) async{
+    await _service.register(name, email, pswd);
+    return true;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restore_config/src/utils/di.dart';
 
 import 'settings_service.dart';
 
@@ -51,9 +52,10 @@ class SettingsController with ChangeNotifier {
     _settingsService.theme=newThemeMode;
   }
 
-  void changeLocale(String lc) {
+  Future<void> changeLocale(String lc) async {
     if (lc == _settingsService.locale) return;
     _settingsService.locale = lc;
+    await registerLocalization(locale);
     notifyListeners();
   }
 }
