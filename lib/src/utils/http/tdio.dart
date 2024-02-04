@@ -16,9 +16,11 @@ class TDio {
 
 class AuthInterceptor extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  Future<void> onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers["Authorization"] = SharedPreferences.getInstance();
     // options.headers["Accept"]="application/json";
-    handler.next(options);
+    Future.delayed(
+        const Duration(milliseconds: 650), () => handler.next(options));
   }
 }

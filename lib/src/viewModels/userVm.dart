@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:restore_config/src/models/user.dart';
 import 'package:restore_config/src/services/userService.dart';
 import 'package:restore_config/src/utils/di.dart';
@@ -7,7 +9,7 @@ class UserViewModel extends BaseVm {
   User? _user;
   User? get user => _user;
   final _service = dependincies.get<UserService>();
-
+  final errors = StreamController<String?>();
   set user(User? value) {
     _user = value;
   }
@@ -23,21 +25,28 @@ class UserViewModel extends BaseVm {
       if (result) {
         _user = r.result;
       } else {
-        error = localization.invalid_cred;
+        errors.add(localization.invalid_cred);
       }
     }
 
     if (!r.success)
-      this.error =
-          r.message ?? "Something went wrong while submitting the request";
+      errors.add(
+          r.message ?? "Something went wrong while submitting the request");
 
     toggleLoading();
 
     return result;
   }
 
-  Future<bool> register(String name, String email, String pswd) async{
-    await _service.register(name, email, pswd);
-    return true;
+  Future<bool> register(String name, String email, String pswd) async {
+    toggleLoading(true);
+    final result = await _service.register(name, email, pswd);
+    if (!result.success)
+      errors.add(result.message);
+    else {
+      errors.add("You are Welcome ${name}");
+    }
+    toggleLoading(false);
+    return result.success;
   }
 }
