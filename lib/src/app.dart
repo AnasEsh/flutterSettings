@@ -27,16 +27,15 @@ class MyApp extends StatelessWidget {
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: settingsController),
         ChangeNotifierProvider<UserViewModel>(
           create: (context) => UserViewModel(),
         )
       ],
-      builder: (context, _) {
-        return ListenableBuilder(
-          listenable: settingsController,
-          builder: (BuildContext context, Widget? child) {
-            // dependincies.registerSingleton(AppLocalizations.of(context)!);
-            return MaterialApp(
+      builder: (BuildContext context, Widget? child) {
+        // dependincies.registerSingleton(AppLocalizations.of(context)!);
+        return Consumer<SettingsController>(
+            builder: (context, settingsController, child) => MaterialApp(
                 locale: Locale(settingsController.locale),
                 // Providing a restorationScopeId allows the Navigator built by the
                 // MaterialApp to restore the navigation stack when a user leaves and
@@ -108,9 +107,7 @@ class MyApp extends StatelessWidget {
                 //     },
                 //   );
                 // },
-                );
-          },
-        );
+                ));
       },
     );
   }

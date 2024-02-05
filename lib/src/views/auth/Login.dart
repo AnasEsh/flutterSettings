@@ -12,6 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restore_config/src/viewModels/userVm.dart';
 
 class LoginView extends StatefulWidget {
+  static const routeName = "/login";
   const LoginView({super.key});
 
   @override
@@ -31,6 +32,7 @@ class _LoginViewState extends State<LoginView> {
     pswd = TextEditingController();
     name = TextEditingController();
     vm = context.read<UserViewModel>();
+
     errorsObserver = vm.errors.stream.listen((event) {
       if (event == null) return;
       ScaffoldMessenger.of(context)
@@ -51,6 +53,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      ),
       body: Form(
         key: key,
         child: Container(
@@ -61,14 +66,6 @@ class _LoginViewState extends State<LoginView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Selector<UserViewModel, bool>(
-                child: LinearProgressIndicator(),
-                builder: (_, value, child) {
-                  if (value) return child!;
-                  return Container();
-                },
-                selector: (p0, p1) => p1.loading,
-              ),
               const Spacer(
                 flex: 2,
               ),
@@ -117,8 +114,15 @@ class _LoginViewState extends State<LoginView> {
                     label: Text("Password"),
                     prefixIcon: Icon(Icons.password)),
               ),
+              Selector<UserViewModel, bool>(
+                child: LinearProgressIndicator(),
+                builder: (_, value, child) {
+                  if (value) return child!;
+                  return Container();
+                },
+                selector: (p0, p1) => p1.loading,
+              ),
               ElevatedButton(
-                  // color: ,
                   onPressed: _submit,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -173,6 +177,7 @@ class _LoginViewState extends State<LoginView> {
   void _submit() async {
     final formState = key.currentState;
     if (formState == null || !formState.validate()) return;
+    FocusManager.instance.primaryFocus?.unfocus();
     if (!registeration)
       _onLogin();
     else

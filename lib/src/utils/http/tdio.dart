@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TDio {
   final Dio client;
-  final Duration _defaultTimeout = const Duration(minutes: 1);
+  final Duration _defaultTimeout = const Duration(milliseconds: 10 * 1000);
 
   TDio({required this.client}) {
     client.options.baseUrl = API;

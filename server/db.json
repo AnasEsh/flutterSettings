@@ -1,7 +1,11 @@
 {
   "user": [
+    {
+      "id": "54e4",
+      "name": "anas esh",
+      "email": "anas@anas.com",
+      "pswd": "123456"
+    }
   ],
-  "post":[
-
-  ]
+  "post": []
 }

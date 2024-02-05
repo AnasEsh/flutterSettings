@@ -18,11 +18,10 @@ Future registerLocalization(String locale) async {
 Future<void> injectDependencies() async {
   dependincies.allowReassignment = true;
 
-  dependincies.registerSingletonAsync(
-      () async => await SharedPreferences.getInstance());
+  dependincies.registerSingleton(await SharedPreferences.getInstance());
 
   dependincies.registerSingleton<Dio>(TDio(client: Dio()).client);
-  
+
   //Functional services
   dependincies.registerSingleton(UserService());
 }

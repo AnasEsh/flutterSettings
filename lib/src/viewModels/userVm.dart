@@ -9,11 +9,15 @@ class UserViewModel extends BaseVm {
   User? _user;
   User? get user => _user;
   final _service = dependincies.get<UserService>();
-  final errors = StreamController<String?>();
+  final errors = StreamController<String?>.broadcast();
   set user(User? value) {
     _user = value;
   }
 
+  bool get loggedIn => user != null;
+  UserViewModel() {
+    getToken();
+  }
   Future<bool> login(String email, String pswd) async {
     toggleLoading(true);
     final r = await _service.login(email, pswd);
@@ -48,5 +52,19 @@ class UserViewModel extends BaseVm {
     }
     toggleLoading(false);
     return result.success;
+  }
+
+  void logout() {
+    _service.logout();
+    user = null;
+    notifyListeners();
+    return;
+  }
+
+  void getToken() async {
+    final u = await _service.refreshToken();
+    if (u == null) return;
+    user = u;
+    notifyListeners();
   }
 }
