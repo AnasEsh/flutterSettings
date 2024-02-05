@@ -22,7 +22,7 @@ Future<void> injectDependencies() async {
       () async => await SharedPreferences.getInstance());
 
   dependincies.registerSingleton<Dio>(TDio(client: Dio()).client);
-
+  
   //Functional services
   dependincies.registerSingleton(UserService());
 }

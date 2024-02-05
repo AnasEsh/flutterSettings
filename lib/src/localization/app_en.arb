@@ -19,5 +19,6 @@
   },
   "item_details":"Item Details",
   "item_details_more":"More information Here",
-  "invalid_cred":"Invalid credentials"
+  "invalid_cred":"Invalid credentials",
+  "posts_title":"Posts"
 }

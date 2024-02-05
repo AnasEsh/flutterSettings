@@ -8,7 +8,9 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
-
+scripts:
+  run:
+    localize: "flutter gen-l10n"
 dependencies:
   dio: ^5.4.0
   flutter:
