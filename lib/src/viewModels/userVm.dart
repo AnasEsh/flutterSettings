@@ -9,7 +9,6 @@ class UserViewModel extends BaseVm {
   User? _user;
   User? get user => _user;
   final _service = dependincies.get<UserService>();
-  final errors = StreamController<String?>.broadcast();
   set user(User? value) {
     _user = value;
   }
@@ -33,9 +32,10 @@ class UserViewModel extends BaseVm {
       }
     }
 
-    if (!r.success)
+    if (!r.success) {
       errors.add(
           r.message ?? "Something went wrong while submitting the request");
+    }
 
     toggleLoading();
 
@@ -45,10 +45,10 @@ class UserViewModel extends BaseVm {
   Future<bool> register(String name, String email, String pswd) async {
     toggleLoading(true);
     final result = await _service.register(name, email, pswd);
-    if (!result.success)
+    if (!result.success) {
       errors.add(result.message);
-    else {
-      errors.add("You are Welcome ${name}");
+    } else {
+      errors.add("You are Welcome $name");
     }
     toggleLoading(false);
     return result.success;

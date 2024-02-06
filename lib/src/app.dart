@@ -3,10 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:restore_config/src/router.dart';
-import 'package:restore_config/src/services/userService.dart';
 import 'package:restore_config/src/utils/di.dart';
+import 'package:restore_config/src/viewModels/postVm.dart';
 import 'package:restore_config/src/viewModels/userVm.dart';
-import 'package:restore_config/src/views/auth/Login.dart';
 
 import 'settings/settings_controller.dart';
 
@@ -30,7 +29,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: settingsController),
         ChangeNotifierProvider<UserViewModel>(
           create: (context) => UserViewModel(),
-        )
+        ),
+        ChangeNotifierProvider(create: (_)=>PostViewModel())
       ],
       builder: (BuildContext context, Widget? child) {
         // dependincies.registerSingleton(AppLocalizations.of(context)!);
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                 // directory.
                 // onGenerateTitle: (BuildContext context) =>
                 //     AppLocalizations.of(context)!.appTitle,
-                title: dependincies.get<AppLocalizations>().appTitle ?? "Unk",
+                title: dependincies.get<AppLocalizations>().appTitle,
                 // Define a light and dark color theme. Then, read the user's
                 // preferred ThemeMode (light, dark, or system default) from the
                 // SettingsController to display the correct theme.
@@ -72,16 +72,16 @@ class MyApp extends StatelessWidget {
                     inputDecorationTheme: InputDecorationTheme(
                         focusedBorder: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
-                                const Radius.circular(20)),
+                                Radius.circular(20)),
                             borderSide: BorderSide(
                                 color: Theme.of(context).primaryColor)),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderRadius: const BorderRadius.all(Radius.circular(15)),
                             borderSide: BorderSide(
                                 color:
                                     Theme.of(context).colorScheme.secondary)),
                         errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: const BorderRadius.all(Radius.circular(5)),
                             borderSide: BorderSide(
                                 color:
                                     Theme.of(context).colorScheme.secondary)))),

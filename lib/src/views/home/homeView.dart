@@ -4,8 +4,11 @@ import 'package:restore_config/src/settings/settings_view.dart';
 import 'package:restore_config/src/utils/di.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:restore_config/src/viewModels/postVm.dart';
 import 'package:restore_config/src/viewModels/userVm.dart';
 import 'package:restore_config/src/views/auth/Login.dart';
+import 'package:restore_config/src/views/home/PostFormView.dart';
+import 'package:restore_config/src/views/home/postsList.dart';
 
 class HomeView extends StatefulWidget {
   static const routeName = "/";
@@ -18,16 +21,33 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late UserViewModel userVm;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PostViewModel>().getPosts();
+    });
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
     userVm = context.read();
     final localization = dependincies.get<AppLocalizations>();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        showModalBottomSheet(context: context, builder: (context) {
+          return PostFormView();
+        },);
+      },
+      child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(localization.posts_title),
-            SizedBox(
+            const SizedBox(
               width: 4,
             ),
             const Icon(Icons.podcasts_sharp)
@@ -77,6 +97,8 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
+    
+    body:const PostsList(),
     );
   }
 }

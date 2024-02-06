@@ -1,14 +1,10 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restore_config/src/constants/view_helpers/auth.dart';
-import 'package:restore_config/src/services/userService.dart';
 import 'package:restore_config/src/utils/Extensions/strExt.dart';
-import 'package:restore_config/src/utils/di.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:restore_config/src/viewModels/userVm.dart';
 
 class LoginView extends StatefulWidget {
@@ -115,7 +111,7 @@ class _LoginViewState extends State<LoginView> {
                     prefixIcon: Icon(Icons.password)),
               ),
               Selector<UserViewModel, bool>(
-                child: LinearProgressIndicator(),
+                child: const LinearProgressIndicator(),
                 builder: (_, value, child) {
                   if (value) return child!;
                   return Container();
@@ -129,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(registeration ? Icons.account_circle : Icons.login),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Text(
                         registeration ? "Register" : "Login",
                       ),
@@ -178,9 +174,10 @@ class _LoginViewState extends State<LoginView> {
     final formState = key.currentState;
     if (formState == null || !formState.validate()) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    if (!registeration)
+    if (!registeration) {
       _onLogin();
-    else
+    } else {
       _onRegister();
+    }
   }
 }

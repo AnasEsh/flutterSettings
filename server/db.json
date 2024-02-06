@@ -7,5 +7,12 @@
       "pswd": "123456"
     }
   ],
-  "post": []
+  "post": [
+    {
+      "id":"54i6",
+      "content":"wawy mitwawi belwawy",
+      "modified":"2024-02-06 15:46:40.785",
+      "creatorId": "54e4"
+  }
+  ]
 }
