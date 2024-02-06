@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:restore_config/src/models/user.dart';
-import 'package:restore_config/src/services/userService.dart';
+import 'package:restore_config/src/services/implementations/userService.dart';
 import 'package:restore_config/src/utils/di.dart';
 import 'package:restore_config/src/viewModels/base.dart';
 

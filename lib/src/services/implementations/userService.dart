@@ -1,16 +1,12 @@
-
 import 'package:dio/dio.dart';
 import 'package:restore_config/src/constants/requestConstants.dart';
 import 'package:restore_config/src/models/user.dart';
-import 'package:restore_config/src/services/base.dart';
+import 'package:restore_config/src/services/contracts/userServiceContract.dart';
 import 'package:restore_config/src/utils/Extensions/exceptionExt.dart';
-import 'package:restore_config/src/utils/di.dart';
 import 'package:restore_config/src/utils/helperModels/apiResult.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class UserService extends BaseService {
-  Dio http = dependincies.get<Dio>();
-  SharedPreferences localStorage = dependincies.get<SharedPreferences>();
+class UserService extends UserServiceContract {
+  @override
   Future<ApiResult<User>> login(String email, String pswd) async {
     Response<List?> r;
     try {
@@ -29,6 +25,7 @@ class UserService extends BaseService {
     // return unparsed == null ? unparsed : User.fromJson(unparsed);
   }
 
+  @override
   Future<User?> refreshToken() async {
     try {
       final uid = localStorage.getString(tokenKey);
@@ -43,18 +40,22 @@ class UserService extends BaseService {
     return null;
   }
 
+  @override
   void saveToken(String userId) {
     localStorage.setString(tokenKey, userId);
   }
 
+  @override
   void removeToken() {
     localStorage.remove(tokenKey);
   }
 
+  @override
   void logout() {
     removeToken();
   }
 
+  @override
   Future<ApiResult<dynamic>> register(
       String name, String email, String pswd) async {
     Response r;

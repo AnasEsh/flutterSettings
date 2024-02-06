@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:restore_config/src/services/postService.dart';
-import 'package:restore_config/src/services/userService.dart';
+import 'package:restore_config/src/services/implementations/postService.dart';
+import 'package:restore_config/src/services/implementations/userService.dart';
 import 'package:restore_config/src/utils/http/tdio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

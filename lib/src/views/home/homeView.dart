@@ -27,7 +27,6 @@ class _HomeViewState extends State<HomeView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<PostViewModel>().getPosts();
     });
-    
   }
 
   @override
@@ -35,13 +34,26 @@ class _HomeViewState extends State<HomeView> {
     userVm = context.read();
     final localization = dependincies.get<AppLocalizations>();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        showModalBottomSheet(context: context, builder: (context) {
-          return PostFormView();
-        },);
-      },
-      child: Icon(Icons.add),
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: Selector<UserViewModel, bool>(
+        selector: (p0, p1) => p1.loggedIn,
+        child: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return PostFormView();
+              },
+            );
+          },
+          child: Icon(Icons.add),
+        ),
+        builder: (_, loggedIn, child) => !loggedIn ? Container() : child!,
       ),
+      //  !userVm.loggedIn
+      //     ? null
+      //     : ,
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -97,8 +109,7 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
-    
-    body:const PostsList(),
+      body: const PostsList(),
     );
   }
 }
